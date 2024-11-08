@@ -55,8 +55,8 @@ executable(
     asresources,
     config_header,
     dependencies: [
-        dependency('gtk+-3.0'),
-        dependency('granite', version: '>= 5.3.0'),
+        dependency('gtk4'),
+        dependency('granite-7'),
         dependency('glib-2.0'),
         dependency('gee-0.8'),
         dependency('gobject-2.0'),
@@ -64,7 +64,7 @@ executable(
         dependency('libgda-6.0'),
         dependency('libssh2'),
         dependency('libsecret-1'),
-        dependency('gtksourceview-3.0'),
+        dependency('gtksourceview-5',version: '>=5.14'),
         m_dep,
         linux_dep
     ],

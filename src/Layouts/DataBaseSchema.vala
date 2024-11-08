@@ -381,7 +381,7 @@ public class Sequeler.Layouts.DataBaseSchema : Gtk.Grid {
         }
 
         if (window.main.connection_manager.connection != null && window.main.connection_manager.connection.is_opened ()) {
-            window.main.connection_manager.connection.clear_events_list ();
+            //window.main.connection_manager.connection.clear_events_list ();
             window.main.connection_manager.connection.close ();
         }
 

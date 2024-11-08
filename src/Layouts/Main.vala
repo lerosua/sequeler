@@ -87,7 +87,7 @@ public class Sequeler.Layouts.Main : Gtk.Paned {
         }
 
         if (connection_manager.connection != null && connection_manager.connection.is_opened ()) {
-            connection_manager.connection.clear_events_list ();
+            //connection_manager.connection.clear_events_list ();
             connection_manager.connection.close ();
             connection_manager.connection = null;
         }

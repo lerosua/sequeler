@@ -61,7 +61,7 @@ executable(
         dependency('gee-0.8'),
         dependency('gobject-2.0'),
         dependency('libxml-2.0'),
-        dependency('libgda-5.0'),
+        dependency('libgda-6.0'),
         dependency('libssh2'),
         dependency('libsecret-1'),
         dependency('gtksourceview-3.0'),

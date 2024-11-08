@@ -575,9 +575,9 @@ public class Sequeler.Layouts.Views.Query : Gtk.Grid {
 
     private void save_to_file (int type) {
         var options_list = new GLib.SList<Gda.Holder> ();
-        var separator_holder = new Gda.Holder (GLib.Type.STRING);
-        var first_line_holder = new Gda.Holder (GLib.Type.BOOLEAN);
-        var overwrite_holder = new Gda.Holder (GLib.Type.BOOLEAN);
+        var separator_holder = new Gda.Holder (GLib.Type.STRING, "id");
+        var first_line_holder = new Gda.Holder (GLib.Type.BOOLEAN, "id");
+        var overwrite_holder = new Gda.Holder (GLib.Type.BOOLEAN, "id");
 
         separator_holder.id = "SEPARATOR";
         try {

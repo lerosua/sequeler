@@ -64,7 +64,7 @@ executable(
         dependency('libgda-6.0'),
         dependency('libssh2'),
         dependency('libsecret-1'),
-        dependency('gtksourceview-5',version: '>=5.14'),
+        dependency('gtksourceview-5',version: '>=5.12'),
         m_dep,
         linux_dep
     ],

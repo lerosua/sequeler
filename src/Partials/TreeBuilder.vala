@@ -154,7 +154,7 @@ public class Sequeler.Partials.TreeBuilder : Gtk.TreeView {
         Gtk.TreeIter iter;
 
         Gdk.Display display = Gdk.Display.get_default ();
-        Gtk.Clipboard clipboard = Gtk.Clipboard.get_default (display);
+        Gdk.Clipboard clipboard = Gdk.Clipboard.get_default (display);
         model.get_iter (out iter, path);
         model.get_value (iter, column.get_data ("model_column_id"), out val);
 
@@ -165,7 +165,7 @@ public class Sequeler.Partials.TreeBuilder : Gtk.TreeView {
             column_data = "";
         }
 
-        clipboard.set_text (column_data, -1);
+        clipboard.set_value(column_data);
     }
 
     private Gtk.Menu create_context_menu (Gdk.EventButton event, Gtk.TreePath path, Gtk.TreeViewColumn column) {

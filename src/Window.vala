@@ -28,7 +28,7 @@ public class Sequeler.Window : Gtk.ApplicationWindow {
     public Sequeler.Services.DataManager data_manager;
     public Sequeler.Widgets.ConnectionDialog? connection_dialog = null;
 
-    public Gtk.AccelGroup accel_group { get; construct; }
+    //public Gtk.AccelGroup accel_group { get; construct; }
 
     public Window (Sequeler.Application sequeler_app) {
         Object (
@@ -39,8 +39,8 @@ public class Sequeler.Window : Gtk.ApplicationWindow {
     }
 
     construct {
-        accel_group = new Gtk.AccelGroup ();
-        add_accel_group (accel_group);
+        //accel_group = new Gtk.AccelGroup ();
+        //add_accel_group (accel_group);
 
         action_manager = new Sequeler.Services.ActionManager (app, this);
         main = new Sequeler.Layouts.Main (this);

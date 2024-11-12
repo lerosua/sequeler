@@ -51,7 +51,8 @@ public class Sequeler.Widgets.ConnectionDialog : Gtk.Dialog {
     private Sequeler.Partials.Entry db_username_entry;
     private Sequeler.Partials.Entry db_password_entry;
     private Sequeler.Partials.Entry db_port_entry;
-    private Gtk.FileChooserButton db_file_entry;
+    //private Gtk.FileChooserButton db_file_entry;
+    private Gtk.Button db_file_entry;
 
     private string keyfile1;
     private string keyfile2;
@@ -70,7 +71,8 @@ public class Sequeler.Widgets.ConnectionDialog : Gtk.Dialog {
     private Sequeler.Partials.LabelForm ssh_port_label;
     private Sequeler.Partials.Entry ssh_port_entry;
     private Sequeler.Partials.LabelForm ssh_identity_file_label;
-    private Gtk.FileChooserButton ssh_identity_file_entry;
+    //private Gtk.FileChooserButton ssh_identity_file_entry;
+    private Gtk.Button ssh_identity_file_entry;
 
     private Gtk.Spinner spinner;
     private Sequeler.Partials.ResponseMessage response_msg;
@@ -252,7 +254,7 @@ public class Sequeler.Widgets.ConnectionDialog : Gtk.Dialog {
         form_grid.attach (ssl_switch_container, 1, 7, 1, 1);
 
         db_file_label = new Sequeler.Partials.LabelForm (_("File Path:"));
-        db_file_entry = new Gtk.FileChooserButton (_("Select Your SQLite File\u2026"), Gtk.FileChooserAction.OPEN);
+        db_file_entry = new Gtk.Button (_("Select Your SQLite File\u2026"));
         var filter = new Gtk.FileFilter ();
         filter.set_filter_name ("Database File");
         filter.add_pattern ("*.db");
@@ -318,9 +320,8 @@ public class Sequeler.Widgets.ConnectionDialog : Gtk.Dialog {
         ssh_grid.attach (ssh_port_entry, 1, 5, 1, 1);
 
         ssh_identity_file_label = new Sequeler.Partials.LabelForm (_("SSH Identity"));
-        ssh_identity_file_entry = new Gtk.FileChooserButton (
-            _("Select Your Identity File\u2026"),
-            Gtk.FileChooserAction.OPEN
+        ssh_identity_file_entry = new Gtk.Button (
+            _("Select Your Identity File\u2026")
         );
         ssh_identity_file_entry.set_filename (this.get_default_ssh_identity_filename ());
         ssh_identity_file_entry.file_set.connect (this.verify_ssh_file_entry);
@@ -384,7 +385,7 @@ public class Sequeler.Widgets.ConnectionDialog : Gtk.Dialog {
         return home_dir + "/.ssh/id_rsa";
     }
 
-    private void verify_ssh_file_entry (Gtk.FileChooserButton file_entry) {
+    private void verify_ssh_file_entry (Gtk.Button file_entry) {
         keyfile2 = file_entry.get_filename ();
         keyfile1 = keyfile2 + ".pub";
 

@@ -33,8 +33,8 @@ public class Sequeler.Layouts.DataBaseSchema : Gtk.Grid {
     public Gtk.Stack stack;
     public Gtk.ScrolledWindow scroll;
     private Gda.DataModel? schema_table;
-    public Granite.Widgets.SourceList.ExpandableItem tables_category;
-    public Granite.Widgets.SourceList source_list;
+    public Sequeler.Widgets.SourceList.ExpandableItem tables_category;
+    public Sequeler.Widgets.SourceList source_list;
 
     private Gtk.Grid toolbar;
     private Gtk.Spinner spinner;
@@ -422,8 +422,8 @@ public class Sequeler.Layouts.DataBaseSchema : Gtk.Grid {
         tables_category.expand_all ();
     }
 
-    private bool source_list_visible_func (Granite.Widgets.SourceList.Item item) {
-        if (search_text == null || item is Granite.Widgets.SourceList.ExpandableItem) {
+    private bool source_list_visible_func (Sequeler.Widgets.SourceList.Item item) {
+        if (search_text == null || item is Sequeler.Widgets.SourceList.ExpandableItem) {
             return true;
         }
 
@@ -482,7 +482,7 @@ public class Sequeler.Layouts.DataBaseSchema : Gtk.Grid {
 
         // Then, we need to loop through all the tables and attach them to the new database.
         if (tables_category.n_children > 0) {
-            foreach (Granite.Widgets.SourceList.Item child in tables_category.children) {
+            foreach (Sequeler.Widgets.SourceList.Item child in tables_category.children) {
                 var tb_result = yield window.main.connection_manager.init_query (
                     (window.main.connection_manager.db_type as DataBaseType).transfer_table (
                         current_db,

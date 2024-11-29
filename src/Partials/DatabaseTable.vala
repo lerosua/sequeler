@@ -19,11 +19,11 @@
 * Authored by: Alessandro "Alecaddd" Castellani <castellani.ale@gmail.com>
 */
 
-public class Sequeler.Partials.DataBaseTable : Granite.Widgets.SourceList.Item {
+public class Sequeler.Partials.DataBaseTable : Sequeler.Widgets.SourceList.Item {
     private Gtk.PopoverMenu menu;
-    private Granite.Widgets.SourceList source_list;
+    private Sequeler.Widgets.SourceList source_list;
 
-    public DataBaseTable (string table_name = "", Granite.Widgets.SourceList list) {
+    public DataBaseTable (string table_name = "", Sequeler.Widgets.SourceList list) {
         name = table_name;
         source_list = list;
         editable = true;

@@ -51,6 +51,7 @@ executable(
 
     'Widgets/ConnectionDialog.vala',
     'Widgets/QueryParamsDialog.vala',
+    'Widgets/SourceList.vala',
 
     asresources,
     config_header,

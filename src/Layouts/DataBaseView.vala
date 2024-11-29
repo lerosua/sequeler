@@ -22,7 +22,7 @@
 public class Sequeler.Layouts.DataBaseView : Gtk.Grid {
     public weak Sequeler.Window window { get; construct; }
 
-    public Granite.Widgets.ModeButton tabs;
+    public Granite.Widgets.Button tabs;
     public Gtk.Stack stack;
     public Sequeler.Layouts.Views.Structure structure;
     public Sequeler.Layouts.Views.Content content;
@@ -45,7 +45,7 @@ public class Sequeler.Layouts.DataBaseView : Gtk.Grid {
         var toolbar = new Gtk.Grid ();
         toolbar.get_style_context ().add_class ("library-titlebar");
 
-        tabs = new Granite.Widgets.ModeButton ();
+        tabs = new Granite.Widgets.Button ();
         tabs.append (new Sequeler.Partials.ToolBarButton ("x-office-spreadsheet-template", "Structure", _("Structure")));
         tabs.append (new Sequeler.Partials.ToolBarButton ("x-office-document", "Content", _("Content")));
         tabs.append (new Sequeler.Partials.ToolBarButton ("preferences-system-windows", "Relations", _("Relations")));

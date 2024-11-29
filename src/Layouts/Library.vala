@@ -33,7 +33,7 @@ public class Sequeler.Layouts.Library : Gtk.Grid {
 
     public Gee.HashMap<string, string> real_data;
     public Gtk.Spinner real_spinner;
-    public Gtk.ModelButton real_button;
+    public Gtk.Button real_button;
     public Sequeler.Services.ConnectionManager connection_manager;
 
     public signal void edit_dialog (Gee.HashMap data);
@@ -128,17 +128,28 @@ public class Sequeler.Layouts.Library : Gtk.Grid {
     }
 
     private void build_drag_and_drop () {
-        Gtk.drag_dest_set (item_box, Gtk.DestDefaults.ALL, TARGET_ENTRIES_LABEL, Gdk.DragAction.MOVE);
-        item_box.drag_data_received.connect (on_drag_data_received);
 
-        Gtk.drag_dest_set (title, Gtk.DestDefaults.ALL, TARGET_ENTRIES_LABEL, Gdk.DragAction.MOVE);
-        title.drag_data_received.connect (on_drag_item_received);
+        var target_list = TargetList.new();
+        target_list.add_TARGET_ENTRY(TARGET_ENTRY_LABEL,0,0);
+        item_box.set_drag_dest_target_list(target_list);
+        item_box.drag_data_received.connect(on_drag_data_received);
+
+        title.set_drag_dest_target_list(target_list);
         title.drag_motion.connect (on_drag_motion);
         title.drag_leave.connect (on_drag_leave);
+
+        // Gtk.drag_dest_set (item_box, Gtk.DestDefaults.ALL, TARGET_ENTRIES_LABEL, Gdk.DragAction.MOVE);
+        // item_box.drag_data_received.connect (on_drag_data_received);
+        // Gtk.drag_dest_set (title, Gtk.DestDefaults.ALL, TARGET_ENTRIES_LABEL, Gdk.DragAction.MOVE);
+        // title.drag_data_received.connect (on_drag_item_received);
+        // title.drag_motion.connect (on_drag_motion);
+        // title.drag_leave.connect (on_drag_leave);
     }
 
-    private void on_drag_data_received (Gdk.DragContext context, int x, int y,
-        Gtk.SelectionData selection_data, uint target_type, uint time) {
+    private void on_drag_data_received (Gtk.Widget widget, Gdk.DragContext context,
+                                              int x, int y,
+                            Gtk.SelectionData selection_data,
+                            uint target_type, uint time) {
         int new_pos;
         var target = (Partials.LibraryItem) item_box.get_row_at_y (y);
 
@@ -326,7 +337,7 @@ public class Sequeler.Layouts.Library : Gtk.Grid {
         });
     }
 
-    private void init_connection_begin (Gee.HashMap<string, string> data, Gtk.Spinner spinner, Gtk.ModelButton button, bool update = true) {
+    private void init_connection_begin (Gee.HashMap<string, string> data, Gtk.Spinner spinner, Gtk.Button button, bool update = true) {
         connection_manager = new Sequeler.Services.ConnectionManager (window, data);
 
         if (data["type"] != "SQLite" && data["username"] == "") {

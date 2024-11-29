@@ -145,7 +145,7 @@ public class Sequeler.Partials.TreeBuilder : Gtk.TreeView {
         sortby_column (column.title.replace ("__", "_"), sort);
     }
 
-    private void copy_column_data (Gdk.EventButton event, Gtk.TreePath path, Gtk.TreeViewColumn column) {
+    private void copy_column_data (Gdk.Event event, Gtk.TreePath path, Gtk.TreeViewColumn column) {
         if (path == null || column == null) {
             return;
         }
@@ -168,7 +168,7 @@ public class Sequeler.Partials.TreeBuilder : Gtk.TreeView {
         clipboard.set_value(column_data);
     }
 
-    private Gtk.Menu create_context_menu (Gdk.EventButton event, Gtk.TreePath path, Gtk.TreeViewColumn column) {
+    private Gtk.Menu create_context_menu (Gdk.Event event, Gtk.TreePath path, Gtk.TreeViewColumn column) {
         Gtk.Menu menu = new Gtk.Menu ();
         Gtk.MenuItem item = new Gtk.MenuItem.with_label (_("Copy %s").printf (column.get_title ()));
         item.activate.connect (() => { copy_column_data (event, path, column); });
@@ -184,7 +184,7 @@ public class Sequeler.Partials.TreeBuilder : Gtk.TreeView {
         return menu;
     }
 
-    public override bool button_press_event (Gdk.EventButton event) {
+    public override bool button_press_event (Gdk.Event event) {
         if (event.triggers_context_menu () && event.type == Gdk.EventType.BUTTON_PRESS) {
             Gtk.TreePath path;
             Gtk.TreeViewColumn column;

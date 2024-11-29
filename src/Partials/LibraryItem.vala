@@ -26,7 +26,7 @@ public class Sequeler.Partials.LibraryItem : Gtk.ListBoxRow {
 
     public Gtk.Revealer main_revealer;
     private Gtk.Revealer motion_revealer;
-    public Gtk.ModelButton connect_button;
+    public Gtk.Button connect_button;
     public Gtk.Spinner spinner;
 
     public Gtk.ScrolledWindow scrolled { get; set; }
@@ -48,7 +48,7 @@ public class Sequeler.Partials.LibraryItem : Gtk.ListBoxRow {
     public signal void connect_to (
         Gee.HashMap data,
         Gtk.Spinner spinner,
-        Gtk.ModelButton button
+        Gtk.Button button
     );
 
     // Datatype restrictions on DnD (Gtk.TargetFlags).
@@ -103,16 +103,16 @@ public class Sequeler.Partials.LibraryItem : Gtk.ListBoxRow {
         box.attach (color_box, 0, 0, 1, 1);
         box.attach (title, 1, 0, 1, 1);
 
-        connect_button = new Gtk.ModelButton ();
+        connect_button = new Gtk.Button ();
         connect_button.text = _("Connect");
 
-        var edit_button = new Gtk.ModelButton ();
+        var edit_button = new Gtk.Button ();
         edit_button.text = _("Edit Connection");
 
-        var duplicate_button = new Gtk.ModelButton ();
+        var duplicate_button = new Gtk.Button ();
         duplicate_button.text = _("Duplicate Connection");
 
-        var delete_button = new Gtk.ModelButton ();
+        var delete_button = new Gtk.Button ();
         delete_button.text = _("Delete Connection");
 
         var open_menu = new Gtk.MenuButton ();
@@ -217,31 +217,39 @@ public class Sequeler.Partials.LibraryItem : Gtk.ListBoxRow {
     }
 
     private void build_drag_and_drop () {
+
+
+            var target = Gtk.DragTarget.new (Gdk.ModifierType.BUTTON1_MASK,Gdk.DragAction.MOVE);
+            var source = Gtk.DragSource.new (Gdk.DestDefaults.MOTION,Gdk.DragAction.MOVE);
+
+            Gtk.Widget.add_controller (this, source);
+            Gtk.Widget.add_controller (this, target);
+
         // Make this a draggable widget
-        Gtk.drag_source_set (
-            this,
-            Gdk.ModifierType.BUTTON1_MASK,
-            TARGET_ENTRIES_LABEL,
-            Gdk.DragAction.MOVE
-        );
+//        Gtk.drag_source_set (
+//            this,
+//            Gdk.ModifierType.BUTTON1_MASK,
+//            TARGET_ENTRIES_LABEL,
+//            Gdk.DragAction.MOVE
+//        );
 
         drag_begin.connect (on_drag_begin);
         drag_data_get.connect (on_drag_data_get);
 
         // Make this widget a DnD destination.
-        Gtk.drag_dest_set (
-            this,
-            Gtk.DestDefaults.MOTION,
-            TARGET_ENTRIES_LABEL,
-            Gdk.DragAction.MOVE
-        );
+//        Gtk.drag_dest_set (
+//            this,
+//            Gtk.DestDefaults.MOTION,
+//            TARGET_ENTRIES_LABEL,
+//            Gdk.DragAction.MOVE
+//        );
 
         drag_motion.connect (on_drag_motion);
         drag_leave.connect (on_drag_leave);
         drag_end.connect (clear_indicator);
     }
 
-    private void on_drag_begin (Gtk.Widget widget, Gdk.DragContext context) {
+    private void on_drag_begin (Gtk.DragSource *self, Gdk.Drag *drag, pointer user_data) {
         var row = (Partials.LibraryItem) widget;
 
         Gtk.Allocation alloc;
@@ -268,8 +276,7 @@ public class Sequeler.Partials.LibraryItem : Gtk.ListBoxRow {
         main_revealer.reveal_child = false;
     }
 
-    private void on_drag_data_get (Gtk.Widget widget, Gdk.DragContext context,
-        Gtk.SelectionData selection_data, uint target_type, uint time) {
+    private void on_drag_data_get (Gtk.DragSource *self,double x, double y) {
         uchar[] data = new uchar[(sizeof (Partials.LibraryItem))];
         ((Gtk.Widget[])data)[0] = widget;
 
@@ -278,11 +285,11 @@ public class Sequeler.Partials.LibraryItem : Gtk.ListBoxRow {
         );
     }
 
-    public void clear_indicator (Gdk.DragContext context) {
+    public void clear_indicator (Gtk.DragSource *self,Gdk.Drag *drag) {
         main_revealer.reveal_child = true;
     }
 
-    public bool on_drag_motion (Gdk.DragContext context, int x, int y, uint time) {
+    public bool on_drag_motion (Gtk.DropTarget *self, int x, int y) {
         motion_revealer.reveal_child = true;
 
         int index = get_index ();
@@ -337,7 +344,8 @@ public class Sequeler.Partials.LibraryItem : Gtk.ListBoxRow {
         return should_scroll;
     }
 
-    public void on_drag_leave (Gdk.DragContext context, uint time) {
+    public void on_drag_leave (Gtk.DropTarget *self, pointer user_data) {
+//    public void on_drag_leave (Gtk.DropTarget *self) {
         motion_revealer.reveal_child = false;
         should_scroll = false;
     }

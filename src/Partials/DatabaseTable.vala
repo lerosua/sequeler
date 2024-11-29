@@ -41,9 +41,9 @@ public class Sequeler.Partials.DataBaseTable : Granite.Widgets.SourceList.Item {
 
         copy_item.activate.connect (() => {
             Gdk.Display display = Gdk.Display.get_default ();
-            Gtk.Clipboard clipboard = Gtk.Clipboard.get_default (display);
+            Gdk.Clipboard clipboard = Gtk.Widget.get_clipboard(display);
 
-            clipboard.set_text (name, -1);
+            clipboard.set_text (name);
         });
         copy_item.show ();
 

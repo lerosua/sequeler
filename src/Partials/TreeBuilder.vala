@@ -168,18 +168,18 @@ public class Sequeler.Partials.TreeBuilder : Gtk.TreeView {
         clipboard.set_value(column_data);
     }
 
-    private Gtk.Menu create_context_menu (Gdk.Event event, Gtk.TreePath path, Gtk.TreeViewColumn column) {
-        Gtk.Menu menu = new Gtk.Menu ();
-        Gtk.MenuItem item = new Gtk.MenuItem.with_label (_("Copy %s").printf (column.get_title ()));
-        item.activate.connect (() => { copy_column_data (event, path, column); });
-        item.show ();
+    private Gtk.PopoverMenu create_context_menu (Gdk.Event event, Gtk.TreePath path, Gtk.TreeViewColumn column) {
+        Gtk.PopoverMenu menu = new Gtk.PopoverMenu ();
+
+        Gtk.Button item = new Gtk.Button.with_label (_("Copy %s").printf (column.get_title ()));
+        item.connect_clicked (() => { copy_column_data (event, path, column); });
         menu.append (item);
 
         /* Wayland complains if not set */
-        menu.realize.connect (() => {
-            Gdk.Window child = menu.get_window ();
-            child.set_type_hint (Gdk.WindowTypeHint.POPUP_MENU);
-        });
+        //  menu.realize.connect (() => {
+        //      Gdk.Window child = menu.get_window ();
+        //      child.set_type_hint (Gdk.WindowTypeHint.POPUP_MENU);
+        //  });
 
         return menu;
     }

@@ -20,7 +20,7 @@
 */
 
 public class Sequeler.Partials.DataBaseTable : Granite.Widgets.SourceList.Item {
-    private Gtk.Menu menu;
+    private Gtk.PopoverMenu menu;
     private Granite.Widgets.SourceList source_list;
 
     public DataBaseTable (string table_name = "", Granite.Widgets.SourceList list) {
@@ -30,35 +30,33 @@ public class Sequeler.Partials.DataBaseTable : Granite.Widgets.SourceList.Item {
         build_context_menu ();
     }
 
-    public override Gtk.Menu? get_context_menu () {
+    public override Gtk.PopoverMenu? get_context_menu () {
         return menu;
     }
 
     private void build_context_menu () {
-        menu = new Gtk.Menu ();
-        Gtk.MenuItem copy_item = new Gtk.MenuItem.with_label (_("Copy table name"));
-        Gtk.MenuItem edit_item = new Gtk.MenuItem.with_label (_("Edit table name"));
+        menu = new Gtk.PopoverMenu ();
+        Gtk.Button copy_item = new Gtk.Button.with_label (_("Copy table name"));
+        Gtk.Button edit_item = new Gtk.Button.with_label (_("Edit table name"));
 
-        copy_item.activate.connect (() => {
+        copy_item.connect_clicked (() => {
             Gdk.Display display = Gdk.Display.get_default ();
             Gdk.Clipboard clipboard = Gtk.Widget.get_clipboard(display);
 
             clipboard.set_text (name);
         });
-        copy_item.show ();
 
-        edit_item.activate.connect (() => {
+        edit_item.connect_clicked (() => {
             source_list.start_editing_item (this);
         });
-        edit_item.show ();
 
         menu.append (copy_item);
         menu.append (edit_item);
 
         /* Wayland complains if not set */
-        menu.realize.connect (() => {
-            Gdk.Window child = menu.get_window ();
-            child.set_type_hint (Gdk.WindowTypeHint.POPUP_MENU);
-        });
+        //  menu.realize.connect (() => {
+        //      Gdk.Window child = menu.get_window ();
+        //      child.set_type_hint (Gdk.WindowTypeHint.POPUP_MENU);
+        //  });
     }
 }

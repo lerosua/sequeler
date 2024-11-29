@@ -380,7 +380,7 @@ public class Sequeler.Layouts.Library : Gtk.Grid {
         }
     }
 
-    private void init_real_connection_begin (Gee.HashMap<string, string> data, Gtk.Spinner spinner, Gtk.ModelButton button, bool update) {
+    private void init_real_connection_begin (Gee.HashMap<string, string> data, Gtk.Spinner spinner, Gtk.Button button, bool update) {
         var result = new Gee.HashMap<string, string> ();
 
         connection_manager.init_connection.begin ((obj, res) => {

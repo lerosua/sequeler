@@ -144,8 +144,8 @@ public class Sequeler.Layouts.HeaderBar : Gtk.HeaderBar {
         pack_end (mode_switch);
     }
 
-    private Gtk.ModelButton new_menuitem (string label, string accels) {
-        var button = new Gtk.ModelButton ();
+    private Gtk.Button new_menuitem (string label, string accels) {
+        var button = new Gtk.Button ();
         button.get_child ().destroy ();
         button.add (new Granite.AccelLabel (label, accels));
 
